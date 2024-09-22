@@ -71,6 +71,11 @@ class GenerateDefaults:
                 global_settings.GlobalEnviromentSettings().write_property("MacBookPro_TeraScale_2_Accel", False)
                 self.constants.allow_ts2_accel = False
 
+        if self.model in ["MacPro3,1", "Xserve2,1"]:
+            self.constants.force_quad_thread = True
+        else:
+            self.constants.force_quad_thread = False
+
         if self.model in smbios_data.smbios_dictionary:
             if smbios_data.smbios_dictionary[self.model]["CPU Generation"] >= cpu_data.CPUGen.skylake.value:
                 # On 2016-2017 MacBook Pros, 15" devices used a stock Samsung SSD with IONVMeController
@@ -114,7 +119,6 @@ class GenerateDefaults:
             # Native Macs (mainly M1s) will error out as they don't know what SMBIOS to spoof to
             # As we don't spoof on native models, we can safely ignore this
             spoof_model = self.model
-
 
         if spoof_model in smbios_data.smbios_dictionary:
             if smbios_data.smbios_dictionary[spoof_model]["SecureBootModel"] is not None:
@@ -198,7 +202,6 @@ class GenerateDefaults:
                     device_probe.Broadcom.Chipsets.AirportBrcmNIC,
                 ]
             ):
-                print("Modern WiFi")
                 is_modern_wifi = True
 
         if is_legacy_wifi is False and is_modern_wifi is False:
@@ -206,10 +209,13 @@ class GenerateDefaults:
 
         # 12.0: Legacy Wireless chipsets require root patching
         # 14.0: Modern Wireless chipsets require root patching
-        self.constants.sip_status = False
-        self.constants.secure_status = False
-        self.constants.disable_cs_lv = True
-        self.constants.disable_amfi = True
+        if self.model in smbios_data.smbios_dictionary:
+            if smbios_data.smbios_dictionary[self.model]["Max OS Supported"] < os_data.os_data.sonoma:
+                self.constants.sip_status = True
+                self.constants.sip_status = False
+                self.constants.secure_status = False
+                self.constants.disable_cs_lv = True
+                self.constants.disable_amfi = True
 
         if is_legacy_wifi is True:
             # 13.0: Enabling AirPlay to Mac patches breaks Control Center on legacy chipsets

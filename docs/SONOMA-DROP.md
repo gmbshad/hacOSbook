@@ -1,3 +1,5 @@
+# macOS Sonoma Support
+
 ![](./images/sonoma.png)
 
 *Well here we are again, it's always such a pleasure~*
@@ -31,7 +33,7 @@ OpenCore Legacy Patcher 1.0.0 will support Sonoma for all models normally suppor
 
 * [Bluetooth](#bluetooth)
 * [T1 Security chip](#t1-security-chip)
-* [USB 1.1 (OHCI/UHCI) Support](#usb-11-ohciuhci-support)
+* [USB 1.1 (OHCI/UHCI) Support](#usb-1-1-ohci-uhci-support)
 * [Graphics support and issues](#graphics-support-and-issues)
 
 

@@ -142,10 +142,14 @@ class BuildGraphicsAudio:
         iMac MXM dGPU Backlight DevicePath Detection
         """
 
-        if not self.constants.custom_model and self.computer.dgpu and self.computer.dgpu.pci_path:
+        if not self.constants.custom_model:
             for i, device in enumerate(self.computer.gpus):
                     logging.info(f"- Found dGPU ({i + 1}): {utilities.friendly_hex(device.vendor_id)}:{utilities.friendly_hex(device.device_id)}")
                     self.config["#Revision"][f"Hardware-iMac-dGPU-{i + 1}"] = f"{utilities.friendly_hex(device.vendor_id)}:{utilities.friendly_hex(device.device_id)}"
+
+                    # Work-around for AMD Navi MXM cards with PCIe bridge
+                    if not self.computer.dgpu:
+                        self.computer.dgpu=self.computer.gpus[i]
 
                     if device.pci_path != self.computer.dgpu.pci_path:
                         logging.info("- device path and GFX0 Device path are different")
@@ -350,7 +354,8 @@ class BuildGraphicsAudio:
 
         # Due to regression in AppleALC 1.6.4+, temporarily use 1.6.3 and set override
         if support.BuildSupport(self.model, self.constants, self.config).get_kext_by_bundle_path("AppleALC.kext")["Enabled"] is True:
-            self.config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"]["boot-args"] += " -lilubetaall"
+            if "-lilubetaall" not in self.config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"]["boot-args"]:
+                self.config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"]["boot-args"] += " -lilubetaall"
 
 
     def _firmware_handling(self) -> None:
