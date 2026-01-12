@@ -13,9 +13,9 @@ from .detections import device_probe
 class Constants:
     def __init__(self) -> None:
         # Patcher Versioning
-        self.patcher_version:                 str = "2.3.0"  # OpenCore-Legacy-Patcher
-        self.patcher_support_pkg_version:     str = "1.9.1"  # PatcherSupportPkg
-        self.copyright_date:                  str = "Copyright © 2020-2024 Dortania"
+        self.patcher_version:                 str = "2.5.0"  # OpenCore-Legacy-Patcher
+        self.patcher_support_pkg_version:     str = "1.9.6"  # PatcherSupportPkg
+        self.copyright_date:                  str = "Copyright © 2020-2025 Dortania"
         self.patcher_name:                    str = "OpenCore Legacy Patcher"
 
         # URLs
@@ -28,25 +28,25 @@ class Constants:
 
         # OpenCore Versioning
         # https://github.com/acidanthera/OpenCorePkg
-        self.opencore_version: str = "1.0.1"
+        self.opencore_version: str = "1.0.4"
 
         # Kext Versioning
         ## Acidanthera
         ## https://github.com/acidanthera
-        self.lilu_version:               str = "1.6.8"  #      Lilu
-        self.whatevergreen_version:      str = "1.6.7"  #      WhateverGreen
-        self.whatevergreen_navi_version: str = "1.6.7-Navi"  # WhateverGreen (Navi Patch)
-        self.airportbcrmfixup_version:   str = "2.1.8"  #      AirPortBrcmFixup
-        self.nvmefix_version:            str = "1.1.1"  #      NVMeFix
+        self.lilu_version:               str = "1.7.0"  #      Lilu
+        self.whatevergreen_version:      str = "1.6.9"  #      WhateverGreen
+        self.whatevergreen_navi_version: str = "1.6.9-Navi"  # WhateverGreen (Navi Patch)
+        self.airportbcrmfixup_version:   str = "2.1.9"  #      AirPortBrcmFixup
+        self.nvmefix_version:            str = "1.1.2"  #      NVMeFix
         self.applealc_version:           str = "1.6.3"  #      AppleALC
-        self.restrictevents_version:     str = "1.1.4"  #      RestrictEvents
-        self.featureunlock_version:      str = "1.1.6"  #      FeatureUnlock
-        self.debugenhancer_version:      str = "1.0.9"  #      DebugEnhancer
-        self.cpufriend_version:          str = "1.2.8"  #      CPUFriend
-        self.bluetool_version:           str = "2.6.8"  #      BlueToolFixup (BrcmPatchRAM)
+        self.restrictevents_version:     str = "1.1.5"  #      RestrictEvents
+        self.featureunlock_version:      str = "1.1.7"  #      FeatureUnlock
+        self.debugenhancer_version:      str = "1.1.0"  #      DebugEnhancer
+        self.cpufriend_version:          str = "1.2.9"  #      CPUFriend
+        self.bluetool_version:           str = "2.6.9"  #      BlueToolFixup (BrcmPatchRAM)
         self.cslvfixup_version:          str = "2.6.1"  #      CSLVFixup
         self.autopkg_version:            str = "1.0.4"  #      AutoPkgInstaller
-        self.cryptexfixup_version:       str = "1.0.3"  #      CryptexFixup
+        self.cryptexfixup_version:       str = "1.0.4"  #      CryptexFixup
 
         ## Apple
         ## https://www.apple.com
@@ -155,6 +155,7 @@ class Constants:
         self.unpack_thread                   = None  #  Determine if unpack thread finished (threading.Thread)
         self.update_stage:               int = 0  #     Determine update stage (see gui_support.py)
         self.log_filepath:              Path = None  #  Path to log file
+        self.thread_sleep_interval:    float = 0.01  #  Sleep interval between UI updates (seconds) - balance between UI responsiveness and CPU usage
 
         self.commit_info: tuple = (None, None, None)  # Commit info (Branch, Commit Date, Commit URL)
 

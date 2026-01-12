@@ -93,9 +93,7 @@ class SysPatchDisplayFrame(wx.Frame):
 
         frame.ShowWindowModal()
 
-        while thread.is_alive():
-            wx.Yield()
-
+        gui_support.wait_for_thread(thread)
 
         frame.Close()
 
@@ -231,7 +229,7 @@ class SysPatchDisplayFrame(wx.Frame):
             start_button.Disable()
         else:
             self.available_patches = True
-            if patches[HardwarePatchsetValidation.PATCHING_NOT_POSSIBLE] is True:
+            if patches[HardwarePatchsetValidation.PATCHING_NOT_POSSIBLE] is True or no_new_patches is True:
                 start_button.Disable()
             elif no_new_patches is False:
                 start_button.SetDefault()

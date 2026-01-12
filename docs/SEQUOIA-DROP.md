@@ -14,11 +14,13 @@ This time Apple dropped surprisingly few amount of Macs. With the release of Ope
 
 ## Current status
 
-OpenCore Legacy Patcher 2.0.0 will support Sequoia for most models normally supported by the Patcher, however some challenges remain. You can find information about them below.
+OpenCore Legacy Patcher 2.0.0 supports Sequoia for the models below, however some challenges remain. You can find information about them further down this page.
 
-Unfortunately due to T2 related problems, the recently dropped MacBookAir8,x models cannot be supported at this time.
+<img width="625" alt="" src="./images/OCLP-200-Initial-Support.png">
 
-[More information here](https://github.com/dortania/OpenCore-Legacy-Patcher/issues/1136)
+Unfortunately due to T2 related problems, the recently dropped MacBookAir8,x models cannot be supported at this time. We have made some progress on this issue, but panics are still occurring and there is still a significant amount of development work to do before T2 machines may even get to the install screen. We cannot provide any estimate on when T2 machines will be supported. 
+
+[More information here.](https://github.com/dortania/OpenCore-Legacy-Patcher/issues/1136)
 
 ## Non-functional features
 
@@ -63,11 +65,11 @@ panic(cpu 0 caller 0xffffff801cd12509): "AppleSEPManager panic for "AppleKeyStor
 
 This affects not only macOS Sequoia, but macOS Ventura and Sonoma are confirmed to have the same issue. Thus an underlying problem with the MacBookAir8,x's firmware where it is not happy with OpenCorePkg.
 
-We currently do not have any leads on what exactly breaks the T2.
 * MacBookPro15,2, MacBookPro16,2 and Macmini8,1 do not exhibit these issues in local testing
 * MacPro7,1 does seem to surprisingly based on reports: [MacPro7,1 - OpenCorePkg](https://forums.macrumors.com/threads/manually-configured-opencore-on-the-mac-pro.2207814/post-29418464)
   * Notes from this report were unsuccessful locally: [Cannot boot MacPro7,1 #1487](https://github.com/acidanthera/bugtracker/issues/1487)
 
+We have made some progress on this issue, but panics are still occurring and there is still a significant amount of development work to do before T2 machines may even get to the install screen. We cannot provide any estimate on when T2 machines will be supported.
 
 ### USB 1.1 (OHCI/UHCI) Support
 
@@ -78,29 +80,8 @@ While USB 1.1 may seem unimportant, it handles many important devices on your sy
 * IR Receivers
 * Bluetooth
 
-Users will need to use a USB hub for installation and post-OS updates when patches are cleaned:
+Refer to [the troubleshooting page](https://dortania.github.io/OpenCore-Legacy-Patcher/TROUBLESHOOT-HARDWARE.html#keyboard-mouse-and-trackpad-not-working-in-installer-or-after-update) on how to workaround this issue.
 
-However, the driver has recently been weakened starting from Sonoma, which means even some USB hubs may not work properly. 
-
-An alternative way is making sure to enable "Remote Login" in General -> Sharing before updating, which will enable SSH. 
-That means you can take control using Terminal in another system by typing `ssh username@lan-ip-address` and your password. 
-
-After that run Post Install Volume Patching by typing `/Applications/OpenCore-Patcher.app/Contents/MacOS/OpenCore-Patcher --patch_sys_vol` and finally `sudo reboot`.
-
-
-![](./images/usb11-chart.png)
-
-::: warning The following systems rely on USB 1.1
-
-* iMac10,x and older
-* Macmini4,1 and older
-* MacBook7,1 and older
-* MacBookAir3,1 and older
-* MacPro5,1 and older
-* Xserve 3,1 and older
-:::
-
-[More information here](https://github.com/dortania/OpenCore-Legacy-Patcher/issues/1021)
 
 ### Graphics support and issues
 This build includes both Legacy Metal and non-Metal patches for macOS Sequoia. Refer to the following links for more information about Legacy Metal and non-Metal support and their respective issues.
