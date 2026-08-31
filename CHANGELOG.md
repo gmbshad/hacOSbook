@@ -7,11 +7,12 @@
 - Add slimmed down patchset for Modern Wireless for macOS Sequoia
 - Move JavaScriptCore patch for pre-AVX Macs to RestrictEvents
   - Additionally fixes machines without WiFi cards on Sonoma+ as the patch was not applied before
+- Resolve crashing caused by incorrect reported version in CoreImage patch
 - Increment binaries:
   - OpenCorePkg 1.0.4 - release
   - Lilu 1.7.1 - release
   - RestrictEvents 1.1.7 - (rolling - b70aaa4)
-  - PatcherSupportPkg 1.9.6 - release
+  - PatcherSupportPkg 1.9.7 - release
 
 ## 2.4.1
 - Switch installer source to AppleDB
